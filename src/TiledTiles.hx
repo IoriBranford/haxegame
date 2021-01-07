@@ -1,4 +1,4 @@
-import TiledData.TilesetData;
+import Tiled.TilesetData;
 import h2d.Tile;
 
 typedef Animation = {
@@ -6,7 +6,7 @@ typedef Animation = {
 	speed:Float
 }
 
-class SpriteDict {
+class TiledTiles {
 	var objectTilesByGid = new Map<Int, Tile>();
 	var objectAnimationsByGid = new Map<Int, Animation>();
 	var layerTilesByGid = new Map<Int, Tile>();
@@ -43,7 +43,8 @@ class SpriteDict {
 	];
 
 	public function addTileset(tileset:TilesetData) {
-		var firstgid = nextgid;
+		if (tileset == null)
+			return;
 		var tilesetname = tileset.name;
 		var tilewidth = tileset.tilewidth;
 		var tileheight = tileset.tileheight;
@@ -78,6 +79,7 @@ class SpriteDict {
 			}
 		}
 
+		tileset.firstgid = nextgid;
 		for (i in 0...tilesData.length) {
 			var layerTile = layerTilesArray[i];
 			var objectTile = objectTilesArray[i];
@@ -116,7 +118,6 @@ class SpriteDict {
 			layerTilesByGid[gid] = layerTile;
 			layerTiles[stringId] = layerTile;
 		}
-		return firstgid;
 	}
 
 	public function getLayerTile(gid:Int) {

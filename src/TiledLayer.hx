@@ -4,8 +4,8 @@ import h2d.SpriteBatch;
 import h2d.SpriteBatch.BatchElement;
 import h2d.Bitmap;
 import h2d.Object;
-import TiledData.MapData;
-import TiledData.LayerData;
+import Tiled.MapData;
+import Tiled.LayerData;
 
 class TiledLayer extends Object {
 	public var id(default, null):Int;
@@ -19,17 +19,17 @@ class TiledLayer extends Object {
 	var elementGrid:Array<BatchElement>;
 	var ysort = false;
 
-	public function new(?layerData:LayerData, ?mapData:MapData, ?spriteDict:SpriteDict, ?parent:Object) {
+	public function new(?layerData:LayerData, ?mapData:MapData, ?parent:Object) {
 		super(parent);
-		initFromData(layerData, mapData, spriteDict);
+		initFromData(layerData, mapData);
 	}
 
-	public static function spriteBatchFromData(columns:Int, rows:Int, data:Array<Int>, mapData:MapData, spriteDict:SpriteDict) {
+	public static function spriteBatchFromData(columns:Int, rows:Int, data:Array<Int>, mapData:MapData) {
 		if (rows * columns > data.length)
 			throw "rows*columns > data.length";
 		var spritebatch:SpriteBatch = null;
 		for (gid in data) {
-			var tile = spriteDict.getLayerTile(gid);
+			var tile = Tiled.tiles.getLayerTile(gid);
 			if (tile != null) {
 				spritebatch = new SpriteBatch(Tile.fromTexture(tile.getTexture()));
 				break;
@@ -48,7 +48,7 @@ class TiledLayer extends Object {
 				element.x = c * cellWidth;
 				element.y = r * cellHeight;
 				var gid = data[i++];
-				var tile = spriteDict.getLayerTile(gid);
+				var tile = Tiled.tiles.getLayerTile(gid);
 				if (tile != null) {
 					tile = tile.clone();
 					tile.dx = 0;
@@ -62,7 +62,7 @@ class TiledLayer extends Object {
 		return spritebatch;
 	}
 
-	public function initFromData(layerData:LayerData, mapData:MapData, spriteDict:SpriteDict) {
+	public function initFromData(layerData:LayerData, mapData:MapData) {
 		id = layerData.id;
 		this.x = layerData.offsetx;
 		this.y = layerData.offsety;
@@ -71,7 +71,7 @@ class TiledLayer extends Object {
 			layers = new Map<Int, TiledLayer>();
 			stack = new Layers(this);
 			for (layerData in layerData.layers) {
-				var layer = new TiledLayer(layerData, mapData, spriteDict);
+				var layer = new TiledLayer(layerData, mapData);
 				layers[layer.id] = layer;
 				stack.add(layer, 0);
 			}
@@ -84,7 +84,7 @@ class TiledLayer extends Object {
 
 		if (layerData.chunks != null) {
 			for (chunk in layerData.chunks) {
-				var spritebatch = spriteBatchFromData(chunk.width, chunk.height, chunk.data, mapData, spriteDict);
+				var spritebatch = spriteBatchFromData(chunk.width, chunk.height, chunk.data, mapData);
 				if (spritebatch != null) {
 					spritebatch.x = chunk.x * mapData.tilewidth;
 					spritebatch.y = chunk.y * mapData.tileheight;
@@ -93,7 +93,7 @@ class TiledLayer extends Object {
 			}
 		} else if (layerData.data != null) {
 			var data:Array<Int> = layerData.data;
-			var spritebatch = spriteBatchFromData(mapData.width, mapData.height, data, mapData, spriteDict);
+			var spritebatch = spriteBatchFromData(mapData.width, mapData.height, data, mapData);
 			if (spritebatch != null) {
 				this.addChild(spritebatch);
 			}
@@ -104,7 +104,7 @@ class TiledLayer extends Object {
 			objects = new Map<Int, TiledObject>();
 			stack = new Layers(this);
 			for (objectData in layerData.objects) {
-				var object = new TiledObject(objectData, spriteDict);
+				var object = new TiledObject(objectData);
 				objects[object.id] = object;
 				stack.add(object, 0);
 			}

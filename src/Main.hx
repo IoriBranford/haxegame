@@ -7,8 +7,7 @@ class Main extends hxd.App {
 
 	override function init() {
 		hxd.Res.initEmbed();
-		var spriteDict = new SpriteDict();
-		map = TiledMap.fromFile("stage_inebriator.json", spriteDict, s2d);
+		map = TiledMap.fromFile("stage_inebriator.json", s2d);
 		// var tf = new h2d.Text(hxd.res.DefaultFont.get(), s2d);
 		// tf.maxWidth = 640;
 		// tf.text = Std.string(mapData);

@@ -1,11 +1,11 @@
 import h2d.Bitmap;
-import SpriteDict.Animation;
+import TiledTiles.Animation;
 import hxd.res.DefaultFont;
 import h2d.Text;
 import h2d.Tile;
 import h2d.Anim;
 import h2d.Object;
-import TiledData.ObjectData;
+import Tiled.ObjectData;
 
 class TiledObject extends Object {
 	public var id(default, null):Int;
@@ -13,9 +13,9 @@ class TiledObject extends Object {
 	var sprite:Object;
 	var text:Text;
 
-	public function new(?objectData:ObjectData, ?spriteDict:SpriteDict, ?parent:Object) {
+	public function new(?objectData:ObjectData, ?parent:Object) {
 		super(parent);
-		initFromData(objectData, spriteDict);
+		initFromData(objectData);
 	}
 
 	public function setSpriteAnim(animation:Animation) {
@@ -32,13 +32,13 @@ class TiledObject extends Object {
 		sprite = new Bitmap(tile, this);
 	}
 
-	public function initFromData(objectData:ObjectData, spriteDict:SpriteDict) {
+	public function initFromData(objectData:ObjectData) {
 		id = objectData.id;
-		var templatefirstgid = 0;
+		var gidOffset = 0;
 		if (objectData.template != null) {
-			var template = TiledData.loadTemplate(objectData.template);
+			var template = Tiled.loadTemplate(objectData.template);
 			if (template != null) {
-				templatefirstgid = spriteDict.addTileset(template.tileset);
+				gidOffset = template.tileset.firstgid - 1;
 			}
 		}
 
@@ -54,14 +54,14 @@ class TiledObject extends Object {
 				this.scaleY = -this.scaleY;
 
 			gid &= 0x1fffffff;
-			gid += templatefirstgid - 1;
+			gid += gidOffset;
 			objectData.gid = gid;
 
-			var animation = spriteDict.getObjectAnimation(gid);
+			var animation = Tiled.tiles.getObjectAnimation(gid);
 			if (animation != null) {
 				setSpriteAnim(animation);
 			} else {
-				setSpriteTile(spriteDict.getObjectTile(gid));
+				setSpriteTile(Tiled.tiles.getObjectTile(gid));
 			}
 		}
 

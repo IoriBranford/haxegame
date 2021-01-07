@@ -220,7 +220,41 @@ typedef TemplateData = {
 	object:ObjectData,
 }
 
-class TiledData {
+class Tiled {
+	public static var tiles(default, null) = new TiledTiles();
+
+	static var dataCache = new Map<String, Any>();
+
+	public static function loadMapData(filename:String):MapData {
+		if (dataCache.exists(filename))
+			return dataCache.get(filename);
+		var data = parseMap(hxd.Res.load(filename).toText(), Path.directory(filename));
+		dataCache.set(filename, data);
+		return data;
+	}
+
+	public static function loadTilesetData(filename:String):TilesetData {
+		if (dataCache.exists(filename))
+			return dataCache.get(filename);
+		var data = parseTileset(hxd.Res.load(filename).toText(), Path.directory(filename));
+		tiles.addTileset(data);
+		dataCache.set(filename, data);
+		return data;
+	}
+
+	public static function loadTemplate(filename:String):TemplateData {
+		if (dataCache.exists(filename))
+			return dataCache.get(filename);
+		var data = parseTemplate(hxd.Res.load(filename).toText(), Path.directory(filename));
+		dataCache.set(filename, data);
+		return data;
+	}
+
+	public static function clearCached() {
+		dataCache = new Map<String, Any>();
+		tiles = new TiledTiles();
+	}
+
 	static function _fntFileName(fontfamily:String, pixelsize:Int = 16, bold:Bool = false, italic:Bool = false) {
 		var fontfile = fontfamily;
 		if (bold)
@@ -282,13 +316,13 @@ class TiledData {
 		return array;
 	}
 
-	static function initLayer(layer:LayerData, cwd:String = "") {
+	static function initLayer(layer:LayerData, cwd:String) {
 		if (layer == null)
 			return;
 		layer.propertyDict = propertyDict(layer.properties);
 		if (layer.layers != null) {
 			for (layer in layer.layers) {
-				initLayer(layer);
+				initLayer(layer, cwd);
 			}
 		}
 
@@ -342,17 +376,15 @@ class TiledData {
 		}
 	}
 
-	static function initTileset(tileset:TilesetData, cwd:String = "") {
+	static function initTileset(tileset:TilesetData, cwd:String) {
 		if (tileset == null)
 			return null;
 
 		tileset.propertyDict = propertyDict(tileset.properties);
 		if (tileset.source != null) {
-			var firstgid = tileset.firstgid;
 			var source = Path.join([cwd, tileset.source]);
 			tileset = loadTilesetData(source);
 			tileset.source = source;
-			tileset.firstgid = firstgid;
 		} else {
 			var oldtiles = tileset.tiles;
 			if (oldtiles != null) {
@@ -371,7 +403,7 @@ class TiledData {
 		return tileset;
 	}
 
-	static function parseMap(text:String, cwd:String = ""):MapData {
+	static function parseMap(text:String, cwd:String):MapData {
 		var map:MapData = Json.parse(text);
 		map.propertyDict = propertyDict(map.properties);
 		for (i in 0...map.tilesets.length) {
@@ -383,44 +415,14 @@ class TiledData {
 		return map;
 	}
 
-	static function parseTileset(text:String, cwd:String = ""):TilesetData {
+	static function parseTileset(text:String, cwd:String):TilesetData {
 		return initTileset(Json.parse(text), cwd);
 	}
 
-	static function parseTemplate(text:String, cwd:String = ""):TemplateData {
+	static function parseTemplate(text:String, cwd:String):TemplateData {
 		var template:TemplateData = Json.parse(text);
 		template.tileset = initTileset(template.tileset, cwd);
 		initObject(template.object, cwd);
 		return template;
-	}
-
-	static var dataCache = new Map<String, Any>();
-
-	public static function loadMapData(filename:String):MapData {
-		if (dataCache.exists(filename))
-			return dataCache.get(filename);
-		var data = parseMap(hxd.Res.load(filename).toText(), Path.directory(filename));
-		dataCache.set(filename, data);
-		return data;
-	}
-
-	public static function loadTilesetData(filename:String):TilesetData {
-		if (dataCache.exists(filename))
-			return dataCache.get(filename);
-		var data = parseTileset(hxd.Res.load(filename).toText(), Path.directory(filename));
-		dataCache.set(filename, data);
-		return data;
-	}
-
-	public static function loadTemplate(filename:String):TemplateData {
-		if (dataCache.exists(filename))
-			return dataCache.get(filename);
-		var data = parseTemplate(hxd.Res.load(filename).toText(), Path.directory(filename));
-		dataCache.set(filename, data);
-		return data;
-	}
-
-	public static function clearDataCache() {
-		dataCache = new Map<String, Any>();
 	}
 }

@@ -1,5 +1,5 @@
 import h2d.Layers;
-import TiledData.MapData;
+import Tiled.MapData;
 import h2d.Object;
 
 class TiledMap extends Object {
@@ -10,25 +10,23 @@ class TiledMap extends Object {
 	var nextLayerId = 1;
 	var nextObjectId = 1;
 
-	public static function fromFile(filename:String, spriteDict:SpriteDict, ?parent:Object) {
-		var mapData = TiledData.loadMapData(filename);
-		return new TiledMap(mapData, spriteDict, parent);
+	public static function fromFile(filename:String, ?parent:Object) {
+		var mapData = Tiled.loadMapData(filename);
+		return new TiledMap(mapData, parent);
 	}
 
-	public function new(?mapData:MapData, ?spriteDict:SpriteDict, ?parent:Object) {
+	public function new(?mapData:MapData, ?parent:Object) {
 		super(parent);
 		layerStack = new Layers(this);
-		initFromData(mapData, spriteDict);
+		initFromData(mapData);
 	}
 
-	public function initFromData(mapData:MapData, spriteDict:SpriteDict) {
+	public function initFromData(mapData:MapData) {
 		nextLayerId = mapData.nextlayerid;
 		nextObjectId = mapData.nextobjectid;
 
-		spriteDict.addTilesets(mapData.tilesets);
-
 		for (layerData in mapData.layers) {
-			var layer = new TiledLayer(layerData, mapData, spriteDict);
+			var layer = new TiledLayer(layerData, mapData);
 			layerStack.add(layer, 0);
 			fillAllLayersAndObjects(layer);
 		}
