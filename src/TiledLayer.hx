@@ -1,3 +1,4 @@
+import h2d.Layers;
 import h2d.Tile;
 import h2d.SpriteBatch;
 import h2d.SpriteBatch.BatchElement;
@@ -8,13 +9,15 @@ import TiledData.LayerData;
 
 class TiledLayer extends Object {
 	public var id(default, null):Int;
-	public var layers(default, null):Array<TiledLayer>;
-	public var objects(default, null):Array<TiledObject>;
+	public var layers(default, null):Map<Int, TiledLayer>;
+	public var objects(default, null):Map<Int, TiledObject>;
 
+	var stack:Layers;
 	var bitmap:Bitmap;
 	var spriteBatch:SpriteBatch;
-	var chunkSpriteBatches:Array<SpriteBatch>;
+	var chunkGrid:Array<SpriteBatch>;
 	var elementGrid:Array<BatchElement>;
+	var ysort = false;
 
 	public function new(?layerData:LayerData, ?mapData:MapData, ?spriteDict:SpriteDict, ?parent:Object) {
 		super(parent);
@@ -65,9 +68,12 @@ class TiledLayer extends Object {
 		this.y = layerData.offsety;
 
 		if (layerData.layers != null) {
+			layers = new Map<Int, TiledLayer>();
+			stack = new Layers(this);
 			for (layerData in layerData.layers) {
-				var layer = new TiledLayer(layerData, mapData, spriteDict, this);
-				layers.push(layer);
+				var layer = new TiledLayer(layerData, mapData, spriteDict);
+				layers[layer.id] = layer;
+				stack.add(layer, 0);
 			}
 		}
 
@@ -94,10 +100,13 @@ class TiledLayer extends Object {
 		}
 
 		if (layerData.objects != null) {
-			objects = new Array<TiledObject>();
+			ysort = layerData.draworder == "topdown";
+			objects = new Map<Int, TiledObject>();
+			stack = new Layers(this);
 			for (objectData in layerData.objects) {
-				var object = new TiledObject(objectData, spriteDict, this);
-				objects.push(object);
+				var object = new TiledObject(objectData, spriteDict);
+				objects[object.id] = object;
+				stack.add(object, 0);
 			}
 		}
 	}

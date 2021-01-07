@@ -1,10 +1,12 @@
+import h2d.Layers;
 import TiledData.MapData;
 import h2d.Object;
 
 class TiledMap extends Object {
-	public var layers(default, null) = new Map<Int, TiledLayer>();
-	public var objects(default, null) = new Map<Int, TiledObject>();
+	public var allLayers(default, null) = new Map<Int, TiledLayer>();
+	public var allObjects(default, null) = new Map<Int, TiledObject>();
 
+	var layerStack:Layers;
 	var nextLayerId = 1;
 	var nextObjectId = 1;
 
@@ -15,6 +17,7 @@ class TiledMap extends Object {
 
 	public function new(?mapData:MapData, ?spriteDict:SpriteDict, ?parent:Object) {
 		super(parent);
+		layerStack = new Layers(this);
 		initFromData(mapData, spriteDict);
 	}
 
@@ -25,39 +28,40 @@ class TiledMap extends Object {
 		spriteDict.addTilesets(mapData.tilesets);
 
 		for (layerData in mapData.layers) {
-			var layer = new TiledLayer(layerData, mapData, spriteDict, this);
-			addLayersAndObjects(layer);
+			var layer = new TiledLayer(layerData, mapData, spriteDict);
+			layerStack.add(layer, 0);
+			fillAllLayersAndObjects(layer);
 		}
 	}
 
-	function addLayersAndObjects(layer:TiledLayer) {
-		layers[layer.id] = layer;
+	function fillAllLayersAndObjects(layer:TiledLayer) {
+		allLayers[layer.id] = layer;
 		if (layer.layers != null) {
 			for (layer in layer.layers) {
-				addLayersAndObjects(layer);
+				fillAllLayersAndObjects(layer);
 			}
 		}
 		if (layer.objects != null) {
 			for (object in layer.objects) {
-				objects[object.id] = object;
+				allObjects[object.id] = object;
 			}
 		}
 	}
 	/* TBD Are these needed?
 		public function removeLayer(id:Int) {
-			var layer = layers[id];
+			var layer = allLayers[id];
 			if (layer != null) {
 				layer.parent.removeChild(layer);
-				layers.remove(id);
+				allLayers.remove(id);
 			}
 			return layer;
 		}
 
 		public function removeObject(id:Int) {
-			var object = objects[id];
+			var object = allObjects[id];
 			if (object != null) {
 				object.parent.removeChild(object);
-				objects.remove(id);
+				allObjects.remove(id);
 			}
 			return object;
 		}
