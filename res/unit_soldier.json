@@ -1,0 +1,24 @@
+{ "object":
+    {
+     "gid":22,
+     "height":32,
+     "id":278,
+     "name":"",
+     "properties":[
+            {
+             "name":"health",
+             "type":"int",
+             "value":1
+            }],
+     "rotation":0,
+     "type":"",
+     "visible":true,
+     "width":24
+    },
+ "tileset":
+    {
+     "firstgid":1,
+     "source":"tilesets\/wineguards.json"
+    },
+ "type":"template"
+}
