@@ -82,14 +82,15 @@ class SpriteDict {
 			var layerTile = layerTilesArray[i];
 			var objectTile = objectTilesArray[i];
 			var gid = nextgid++;
-			var stringId = '$tilesetname/$i'; // TODO allow string name
-			objectTilesByGid[gid] = objectTile;
-			objectTiles[stringId] = objectTile;
-			layerTilesByGid[gid] = layerTile;
-			layerTiles[stringId] = layerTile;
+			var stringId = '$tilesetname/$i';
 
 			var tileData = tilesData[i];
 			if (tileData != null) {
+				var properties = tileData.propertyDict;
+				var stringIdProperty = if (properties != null) tileData.propertyDict["id"] else null;
+				if (stringIdProperty != null)
+					stringId = '$tilesetname/${stringIdProperty.value}';
+
 				var animationData = tileData.animation;
 				if (animationData != null) {
 					var speed = 1000.0 / animationData[0].duration;
@@ -109,6 +110,11 @@ class SpriteDict {
 					layerAnimations[stringId] = layerAnimation;
 				}
 			}
+
+			objectTilesByGid[gid] = objectTile;
+			objectTiles[stringId] = objectTile;
+			layerTilesByGid[gid] = layerTile;
+			layerTiles[stringId] = layerTile;
 		}
 		return firstgid;
 	}
