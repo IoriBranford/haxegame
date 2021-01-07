@@ -57,6 +57,7 @@ typedef LayerData = {
 	opacity:Float,
 	tintcolor:String,
 	properties:Array<Property>,
+	propertyDict:Map<String, Property>,
 
 	chunks:Array<Chunk>,
 	compression:String,
@@ -93,6 +94,7 @@ typedef ObjectData = {
 	text:TextData,
 	template:String,
 	properties:Array<Property>,
+	propertyDict:Map<String, Property>,
 	tileset:TilesetData,
 }
 
@@ -100,6 +102,7 @@ typedef Terrain = {
 	name:String,
 	tile:Int,
 	properties:Array<Property>,
+	propertyDict:Map<String, Property>,
 }
 
 typedef FrameData = {
@@ -115,6 +118,7 @@ typedef TileData = {
 	objectgroup:LayerData,
 	terrain:Array<Int>,
 	properties:Array<Property>,
+	propertyDict:Map<String, Property>,
 }
 
 typedef TilesetData = {
@@ -138,6 +142,7 @@ typedef TilesetData = {
 	objectalignment:String,
 	// Alignment to use for tile objects (unspecified (default), topleft, top, topright, left, center, right, bottomleft, bottom or bottomright) (since 1.4)
 	properties:Array<Property>,
+	propertyDict:Map<String, Property>,
 	// Array of Properties
 	source:String,
 	// The external file that contains this tilesets data
@@ -186,6 +191,7 @@ typedef MapData = {
 	orientation:String,
 	// orthogonal, isometric, staggered or hexagonal
 	properties:Array<Property>,
+	propertyDict:Map<String, Property>,
 	// Array of Properties
 	renderorder:String,
 	// right-down (the default), right-up, left-down or left-up (currently only supported for orthogonal maps)
@@ -246,6 +252,16 @@ class TiledData {
 		return {min: min, max: max};
 	}
 
+	static function propertyDict(properties:Array<Property>) {
+		if (properties == null)
+			return null;
+		var dict = new Map<String, Property>();
+		for (property in properties) {
+			dict[property.name] = property;
+		}
+		return dict;
+	}
+
 	static function decodeData(data:Any, compression:String) {
 		var string:String = data;
 		var bytes = Base64.decode(string);
@@ -267,11 +283,13 @@ class TiledData {
 	}
 
 	static function initLayer(layer:LayerData, cwd:String = "") {
+		if (layer == null)
+			return;
+		layer.propertyDict = propertyDict(layer.properties);
 		if (layer.layers != null) {
 			for (layer in layer.layers) {
 				initLayer(layer);
 			}
-			return;
 		}
 
 		if (layer.chunks != null) {
@@ -292,20 +310,7 @@ class TiledData {
 
 		if (layer.objects != null) {
 			for (object in layer.objects) {
-				if (object.template != null) {
-					object.template = Path.join([cwd, object.template]);
-					var template = loadTemplate(object.template);
-					if (object.gid == 0)
-						object.gid = template.object.gid;
-					if (object.name == null || object.name == "")
-						object.name = template.object.name;
-					if (object.type == null || object.type == "")
-						object.type = template.object.type;
-					object.visible = template.object.visible;
-					object.point = template.object.point;
-					object.ellipse = template.object.ellipse;
-					object.tileset = template.tileset;
-				}
+				initObject(object, cwd);
 			}
 		}
 
@@ -315,10 +320,33 @@ class TiledData {
 		}
 	}
 
+	static function initObject(object:ObjectData, cwd:String) {
+		if (object == null)
+			return;
+
+		object.propertyDict = propertyDict(object.properties);
+
+		if (object.template != null) {
+			object.template = Path.join([cwd, object.template]);
+			var template = loadTemplate(object.template);
+			if (object.gid == 0)
+				object.gid = template.object.gid;
+			if (object.name == null || object.name == "")
+				object.name = template.object.name;
+			if (object.type == null || object.type == "")
+				object.type = template.object.type;
+			object.visible = template.object.visible;
+			object.point = template.object.point;
+			object.ellipse = template.object.ellipse;
+			object.tileset = template.tileset;
+		}
+	}
+
 	static function initTileset(tileset:TilesetData, cwd:String = "") {
 		if (tileset == null)
 			return null;
 
+		tileset.propertyDict = propertyDict(tileset.properties);
 		if (tileset.source != null) {
 			var firstgid = tileset.firstgid;
 			var source = Path.join([cwd, tileset.source]);
@@ -332,6 +360,8 @@ class TiledData {
 				tiles.resize(tileset.tilecount);
 				for (tile in oldtiles) {
 					tiles[tile.id] = tile;
+					tile.propertyDict = propertyDict(tile.properties);
+					initLayer(tile.objectgroup, cwd);
 				}
 				tileset.tiles = tiles;
 			}
@@ -343,6 +373,7 @@ class TiledData {
 
 	static function parseMap(text:String, cwd:String = ""):MapData {
 		var map:MapData = Json.parse(text);
+		map.propertyDict = propertyDict(map.properties);
 		for (i in 0...map.tilesets.length) {
 			map.tilesets[i] = initTileset(map.tilesets[i], cwd);
 		}
@@ -359,6 +390,7 @@ class TiledData {
 	static function parseTemplate(text:String, cwd:String = ""):TemplateData {
 		var template:TemplateData = Json.parse(text);
 		template.tileset = initTileset(template.tileset, cwd);
+		initObject(template.object, cwd);
 		return template;
 	}
 
