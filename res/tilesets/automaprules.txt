@@ -1,2 +1,1 @@
-tropical_island_earth.tmx
 tropical_island_bush.tmx
