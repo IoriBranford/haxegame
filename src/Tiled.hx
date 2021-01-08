@@ -264,7 +264,7 @@ class Tiled {
 		return fontfile + ' ' + pixelsize + ".fnt";
 	}
 
-	static function fntFileName(text:TextData) {
+	public static function fntFileName(text:TextData) {
 		return _fntFileName(text.fontfamily, text.pixelsize, text.bold, text.italic);
 	}
 
@@ -358,7 +358,8 @@ class Tiled {
 		if (object == null)
 			return;
 
-		object.propertyDict = propertyDict(object.properties);
+		var properties = propertyDict(object.properties);
+		object.propertyDict = properties;
 
 		if (object.template != null) {
 			object.template = Path.join([cwd, object.template]);
@@ -373,6 +374,13 @@ class Tiled {
 			object.point = template.object.point;
 			object.ellipse = template.object.ellipse;
 			object.tileset = template.tileset;
+			var templateProperties = template.object.properties;
+			if (properties != null && templateProperties != null) {
+				for (property in templateProperties) {
+					if (!properties.exists(property.name))
+						properties[property.name] = property;
+				}
+			}
 		}
 	}
 
