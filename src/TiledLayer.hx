@@ -10,6 +10,7 @@ import Tiled.LayerData;
 
 class TiledLayer extends Layers {
 	public var id(default, null):Int;
+	public var properties(default, null):Map<String, Property>;
 	public var layers(default, null):Map<Int, TiledLayer>;
 	public var objects(default, null):Map<Int, TiledObject>;
 
@@ -18,7 +19,6 @@ class TiledLayer extends Layers {
 	var chunkGrid:Array<SpriteBatch>;
 	var elementGrid:Array<BatchElement>;
 	var ySorted = false;
-	var properties:Map<String, Property>;
 
 	public function new(?layerData:LayerData, ?mapData:MapData, ?parent:Object) {
 		super(parent);
@@ -45,13 +45,14 @@ class TiledLayer extends Layers {
 		var i = 0;
 		for (r in 1...rows + 1) {
 			for (c in 0...columns) {
+				var gid = data[i++];
+				if (gid == 0)
+					continue;
+				var tile = Tiled.tiles.getLayerTile(gid);
 				var element = new BatchElement(null);
 				element.x = c * cellWidth;
 				element.y = r * cellHeight;
-				var gid = data[i++];
-				var tile = Tiled.tiles.getLayerTile(gid);
 				element.t = tile;
-				element.visible = tile != null;
 				spritebatch.add(element);
 			}
 		}
