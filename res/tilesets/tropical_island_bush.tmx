@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="15" height="20" tilewidth="32" tileheight="32" infinite="1" nextlayerid="21" nextobjectid="1">
+ <editorsettings>
+  <export target="."/>
+ </editorsettings>
+ <tileset firstgid="1" source="tropical_island.json"/>
+ <layer id="1" name="regions_input" width="16" height="16">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOGtHoUTAKRsHwAwDv9QED
+  </chunk>
+  </data>
+ </layer>
+ <layer id="2" name="regions_output" width="16" height="16">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOktHoUTAKRsHwAwAGhQDH
+  </chunk>
+  </data>
+ </layer>
+ <layer id="8" name="input_ground" width="15" height="20">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOFKB0DA75UTAKRsHQBwDljwB9
+  </chunk>
+  </data>
+ </layer>
+ <layer id="14" name="output0_ground" width="15" height="20">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOFKB0DA75UTAKRsHQBwDljwB9
+  </chunk>
+  </data>
+ </layer>
+ <layer id="9" name="output1_ground" width="15" height="20">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOZqLRo2AUjILhBwCqxAEz
+  </chunk>
+  </data>
+ </layer>
+ <layer id="11" name="output2_ground" width="15" height="20">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOZqHRo2AUjILhBwCyjAE1
+  </chunk>
+  </data>
+ </layer>
+ <layer id="12" name="output3_ground" width="15" height="20">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOVqDRo2AUjILhBwAfiwFR
+  </chunk>
+  </data>
+ </layer>
+ <layer id="13" name="output4_ground" width="15" height="20">
+  <data encoding="base64" compression="zlib">
+   <chunk x="0" y="0" width="16" height="16">
+   eJxjYMAOVqLRo2AUjILhBwAnUwFT
+  </chunk>
+  </data>
+ </layer>
+</map>
