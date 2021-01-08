@@ -6,32 +6,75 @@
          "target":"."
         }
     },
- "height":20,
+ "height":16,
  "infinite":true,
  "layers":[
+        {
+         "chunks":[
+                {
+                 "data":"eJxzZ2BgcB\/COIxCnEohLqEQN1OIJ1GIF1KIR8HQBgB0oDuh",
+                 "height":16,
+                 "width":16,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "data":"eJxzZ2BgcB\/COIxCnEohLqEQN1OIJ1GIF1KIR8HQBgB0oDuh",
+                 "height":16,
+                 "width":16,
+                 "x":16,
+                 "y":0
+                }],
+         "compression":"zlib",
+         "encoding":"base64",
+         "height":16,
+         "id":1,
+         "name":"sky",
+         "opacity":1,
+         "startx":0,
+         "starty":0,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
         {
          "id":28,
          "layers":[
                 {
                  "chunks":[
                         {
-                         "data":"eJxzZ2BgcB\/COIxCnEohLqEQN1OIJ1GIF1KIR8HQBgB0oDuh",
+                         "data":"eJxjYBgFIxkkA3EKBXQREBdTQI+CgQUAafkNYQ==",
                          "height":16,
                          "width":16,
                          "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFIxkkA3EKBXQREBdTQI+CgQUAafkNYQ==",
+                         "height":16,
+                         "width":16,
+                         "x":16,
                          "y":0
                         }],
                  "compression":"zlib",
                  "encoding":"base64",
                  "height":16,
-                 "id":1,
-                 "name":"sky",
+                 "id":2,
+                 "name":"cloudsA",
                  "opacity":1,
+                 "properties":[
+                        {
+                         "name":"dx",
+                         "type":"float",
+                         "value":-1
+                        }],
                  "startx":0,
                  "starty":0,
                  "type":"tilelayer",
                  "visible":true,
-                 "width":16,
+                 "width":32,
                  "x":0,
                  "y":0
                 }, 
@@ -43,12 +86,21 @@
                          "width":16,
                          "x":0,
                          "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFIxkkA3EKBXQREBdTQI+CgQUAafkNYQ==",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
                         }],
                  "compression":"zlib",
                  "encoding":"base64",
                  "height":16,
-                 "id":2,
-                 "name":"clouds",
+                 "id":35,
+                 "name":"cloudsB",
+                 "offsetx":1024,
+                 "offsety":0,
                  "opacity":1,
                  "properties":[
                         {
@@ -60,7 +112,7 @@
                  "starty":0,
                  "type":"tilelayer",
                  "visible":true,
-                 "width":16,
+                 "width":32,
                  "x":0,
                  "y":0
                 }, 
@@ -72,41 +124,19 @@
                          "width":16,
                          "x":0,
                          "y":0
-                        }],
-                 "compression":"zlib",
-                 "encoding":"base64",
-                 "height":16,
-                 "id":3,
-                 "name":"sea0",
-                 "opacity":1,
-                 "properties":[
+                        }, 
                         {
-                         "name":"dx",
-                         "type":"float",
-                         "value":-1
-                        }],
-                 "startx":0,
-                 "starty":0,
-                 "type":"tilelayer",
-                 "visible":true,
-                 "width":16,
-                 "x":0,
-                 "y":0
-                }, 
-                {
-                 "chunks":[
-                        {
-                         "data":"eJxjYBgFo2DogglAPJECeqQDAD+WCQk=",
+                         "data":"eJxjYBgFo2DgQCMQN1FAjwLKAAA1xQgZ",
                          "height":16,
                          "width":16,
-                         "x":0,
+                         "x":16,
                          "y":0
                         }],
                  "compression":"zlib",
                  "encoding":"base64",
                  "height":16,
-                 "id":4,
-                 "name":"sea1",
+                 "id":3,
+                 "name":"sea0A",
                  "opacity":1,
                  "properties":[
                         {
@@ -118,24 +148,69 @@
                  "starty":0,
                  "type":"tilelayer",
                  "visible":true,
-                 "width":16,
+                 "width":32,
                  "x":0,
                  "y":0
                 }, 
                 {
                  "chunks":[
                         {
-                         "data":"eJxjYBgFo2DkgvlAvGAA6YEGACChE\/E=",
+                         "data":"eJxjYBgFo2DgQCMQN1FAjwLKAAA1xQgZ",
                          "height":16,
                          "width":16,
                          "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2DgQCMQN1FAjwLKAAA1xQgZ",
+                         "height":16,
+                         "width":16,
+                         "x":16,
                          "y":0
                         }],
                  "compression":"zlib",
                  "encoding":"base64",
                  "height":16,
-                 "id":5,
-                 "name":"sea2",
+                 "id":34,
+                 "name":"sea0B",
+                 "offsetx":1024,
+                 "offsety":0,
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"dx",
+                         "type":"float",
+                         "value":-2
+                        }],
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "chunks":[
+                        {
+                         "data":"eJxjYBgFo2DogglAPJECeqQDAD+WCQk=",
+                         "height":16,
+                         "width":16,
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2DogglAPJECeqQDAD+WCQk=",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
+                        }],
+                 "compression":"zlib",
+                 "encoding":"base64",
+                 "height":16,
+                 "id":4,
+                 "name":"sea1A",
                  "opacity":1,
                  "properties":[
                         {
@@ -147,7 +222,119 @@
                  "starty":0,
                  "type":"tilelayer",
                  "visible":true,
-                 "width":16,
+                 "width":32,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "chunks":[
+                        {
+                         "data":"eJxjYBgFo2DogglAPJECeqQDAD+WCQk=",
+                         "height":16,
+                         "width":16,
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2DogglAPJECeqQDAD+WCQk=",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
+                        }],
+                 "compression":"zlib",
+                 "encoding":"base64",
+                 "height":16,
+                 "id":33,
+                 "name":"sea1B",
+                 "offsetx":1024,
+                 "offsety":0,
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"dx",
+                         "type":"float",
+                         "value":-3
+                        }],
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "chunks":[
+                        {
+                         "data":"eJxjYBgFo2DkgvlAvGAA6YEGACChE\/E=",
+                         "height":16,
+                         "width":16,
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2DkgvlAvGAA6YEGACChE\/E=",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
+                        }],
+                 "compression":"zlib",
+                 "encoding":"base64",
+                 "height":16,
+                 "id":5,
+                 "name":"sea2A",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"dx",
+                         "type":"float",
+                         "value":-4
+                        }],
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "chunks":[
+                        {
+                         "data":"eJxjYBgFo2DkgvlAvGAA6YEGACChE\/E=",
+                         "height":16,
+                         "width":16,
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2DkgvlAvGAA6YEGACChE\/E=",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
+                        }],
+                 "compression":"zlib",
+                 "encoding":"base64",
+                 "height":16,
+                 "id":32,
+                 "name":"sea2B",
+                 "offsetx":1024,
+                 "offsety":0,
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"dx",
+                         "type":"float",
+                         "value":-4
+                        }],
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
                  "x":0,
                  "y":0
                 }],
@@ -159,156 +346,155 @@
          "y":0
         }, 
         {
-         "id":12,
-         "layers":[
+         "chunks":[
                 {
-                 "id":27,
-                 "layers":[
-                        {
-                         "chunks":[],
-                         "compression":"zlib",
-                         "encoding":"base64",
-                         "height":0,
-                         "id":21,
-                         "name":"",
-                         "opacity":1,
-                         "startx":0,
-                         "starty":0,
-                         "type":"tilelayer",
-                         "visible":true,
-                         "width":0,
-                         "x":0,
-                         "y":0
-                        }],
-                 "name":"rock",
-                 "opacity":1,
-                 "type":"group",
-                 "visible":true,
+                 "data":"eJzLZ2BgKADiQgbyQB2Z+mCgl0L9c4C4A4i7gbiHDP2CaFiIRP1iQCwOxLOAWBmIDcjQPxNKK5KolwGqdybUDeTql2Ygz+0gAHK3Apl2M0DtJtftICADNYNc\/WIU6p+Fph+UFrsYEGkRxO9kQKRPGB\/GhqUdEQbMtEgMVoKaocAACQsZqHkKUHFY2hBjQIQVzM0gNQCyWhZJ",
+                 "height":16,
+                 "width":16,
                  "x":0,
                  "y":0
                 }, 
                 {
-                 "id":19,
-                 "layers":[
+                 "data":"eJxjYBgFo2AUkAu6gLgTSvcAcQcQd0P5DFB+J1SsG6oGGQhSiMWBWAGIZ0GxGJQvjobFoLQ0lA2jARmPChY=",
+                 "height":16,
+                 "width":16,
+                 "x":16,
+                 "y":0
+                }],
+         "compression":"zlib",
+         "encoding":"base64",
+         "height":16,
+         "id":23,
+         "name":"start",
+         "opacity":1,
+         "startx":0,
+         "starty":0,
+         "type":"tilelayer",
+         "visible":true,
+         "width":32,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "id":12,
+         "layers":[
+                {
+                 "chunks":[
                         {
-                         "chunks":[
-                                {
-                                 "data":"eJxjYBgFo2AUkAs6gLgLiLuBuAeLeCeU7sHUCgaCFOKVQKwApVcA8SwgjgFicSCeCaVhamD8FUhiAJ6YDKw=",
-                                 "height":16,
-                                 "width":16,
-                                 "x":0,
-                                 "y":0
-                                }],
-                         "compression":"zlib",
-                         "encoding":"base64",
+                         "data":"eJxjYBgFo2AUUAI6gLgbiHuIUAPCXUhqBSnEs4B4JRCvgNIzgVgBKg6ixZHUwOgYqDiIDQAxfA0k",
                          "height":16,
-                         "id":7,
-                         "name":"",
-                         "opacity":1,
-                         "startx":0,
-                         "starty":0,
-                         "type":"tilelayer",
-                         "visible":true,
                          "width":16,
                          "x":0,
                          "y":0
                         }, 
                         {
-                         "chunks":[
-                                {
-                                 "data":"eJxjYBgFo2AUUAI6gLgTiHuIUNMNxF1IagUpxLOAeCUQr4DSM4FYASoOosWR1MDoGKg4iA0ALuQNIA==",
-                                 "height":16,
-                                 "width":16,
-                                 "x":0,
-                                 "y":0
-                                }],
-                         "compression":"zlib",
-                         "encoding":"base64",
+                         "data":"eJxjYBgFo2AUUAo6gLgbiHug7E4g7oLSPUhqkPkgIEghVoDimUC8AspeCaVnIcmj82dCaQDhFAv0",
                          "height":16,
-                         "id":15,
-                         "name":"",
-                         "opacity":1,
-                         "startx":0,
-                         "starty":0,
-                         "type":"tilelayer",
-                         "visible":true,
                          "width":16,
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "chunks":[
-                                {
-                                 "data":"eJxjYBgFo2AUUBN0AHEXEHcj0T1Icp1QcZCYIIV4JhCLA\/EsIFYA4pVAHAOlQXIroHIxUFocSQxEAwCg2A5g",
-                                 "height":16,
-                                 "width":16,
-                                 "x":0,
-                                 "y":0
-                                }],
-                         "compression":"zlib",
-                         "encoding":"base64",
-                         "height":16,
-                         "id":16,
-                         "name":"",
-                         "opacity":1,
-                         "startx":0,
-                         "starty":0,
-                         "type":"tilelayer",
-                         "visible":true,
-                         "width":16,
-                         "x":0,
-                         "y":0
-                        }, 
-                        {
-                         "chunks":[
-                                {
-                                 "data":"eJxjYBgFo2AUUAN0AHE3FHcCcQ9UrAuKe7DoEaQQx0DxSig9C8oG0TPR2OJAvALKhqkFAKFIDkk=",
-                                 "height":16,
-                                 "width":16,
-                                 "x":0,
-                                 "y":0
-                                }],
-                         "compression":"zlib",
-                         "encoding":"base64",
-                         "height":16,
-                         "id":17,
-                         "name":"",
-                         "opacity":1,
-                         "startx":0,
-                         "starty":0,
-                         "type":"tilelayer",
-                         "visible":true,
-                         "width":16,
-                         "x":0,
+                         "x":16,
                          "y":0
                         }],
-                 "name":"flat",
+                 "compression":"zlib",
+                 "encoding":"base64",
+                 "height":16,
+                 "id":15,
+                 "name":"flat0",
                  "opacity":1,
-                 "type":"group",
-                 "visible":false,
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
                  "x":0,
                  "y":0
                 }, 
                 {
                  "chunks":[
                         {
-                         "data":"eJylkk0KhDAMRnMFB7GLuqh4gbmZzgVc+3sAxcNOPkiw6MamgQct7dMmfB0R9cyPbDUYPa0t0z+ZkVmY1eAXNz6JvhMOpmW+iT68namYJtFFBfGd0feC5e2oWt5g+TdK52f1MT+f4YdM3918ZHGmK4vYT3TlU\/d6jvmhh5KeWXyD9u9lrf1U8u2YEN3FOXLzBwgOFVc=",
+                         "data":"eJxjYBgFo2BkgOlAPIMC\/cuAeDkOuQ4g7oTiHiRxLiDmBmJ2IBaEYg4g5oTKCxLAkkAsBcQxQDwTikFsCag8iD0LiMWBeAWUPROJvwJJDwivRDILxAYA\/bcPpw==",
                          "height":16,
                          "width":16,
                          "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2AUkAs6gLgLinug\/E4kjCwGUwcTBwFBCvEsIJ4JxOJAvALKjoHiWUjis3CIAQCWXhCn",
+                         "height":16,
+                         "width":16,
+                         "x":16,
                          "y":0
                         }],
                  "compression":"zlib",
                  "encoding":"base64",
                  "height":16,
-                 "id":23,
-                 "name":"start",
+                 "id":21,
+                 "name":"rock",
                  "opacity":1,
                  "startx":0,
                  "starty":0,
                  "type":"tilelayer",
                  "visible":true,
-                 "width":16,
+                 "width":32,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "chunks":[
+                        {
+                         "data":"eJxjYBgFo2AUUAN0AHE3FHcCcQ9UrAuKe9DUgsQEKcQxULwSSs+CskH0TDS2OBCvgLJh+gAvxw8d",
+                         "height":16,
+                         "width":16,
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2AUkAs6gbgbiLuguAeLmg6oXCdUvgNJrSCFeBYQiwPxCih7JhJ\/BZQfA8UrofQsJBoAhA8PYw==",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
+                        }],
+                 "compression":"zlib",
+                 "encoding":"base64",
+                 "height":16,
+                 "id":17,
+                 "name":"flat1",
+                 "opacity":1,
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "chunks":[
+                        {
+                         "data":"eJxjYBgFIwkEAnEQEAeTqT8BiBOBOIlM\/flAXADEhWTqryNTHwz0kqi+A4i7gbgTiHuAeA4edZ1I6riAmBuI2YFYEA1zADEnVB+6HAxLArEUEMcA8Uw0DBKTgKoDsWcBsTgQr4CyZ0LZMLUgvBKNngllAwDGJxXb",
+                         "height":16,
+                         "width":16,
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxjYBgFo2AUkAs6gLgLinug\/E4kjCwGUwcTBwFBCvEsIJ4JxOJAvALKjoHiWUjis3CIAQCWXhCn",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
+                        }],
+                 "compression":"zlib",
+                 "encoding":"base64",
+                 "height":16,
+                 "id":29,
+                 "name":"tree",
+                 "opacity":1,
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
                  "x":0,
                  "y":0
                 }],
@@ -342,7 +528,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":29,
+ "nextlayerid":36,
  "nextobjectid":2,
  "orientation":"orthogonal",
  "renderorder":"right-down",
@@ -356,5 +542,5 @@
  "tilewidth":32,
  "type":"map",
  "version":1.4,
- "width":15
+ "width":32
 }

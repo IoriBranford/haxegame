@@ -1,13 +1,22 @@
-import hxd.Key;
-import h2d.Scene.ScaleModeAlign;
-
 class GameplayState extends AppState {
 	var map:TiledMap;
+	var scrolls = new Array<Scroll>();
+	final ViewWidth = 640;
+	final ViewHeight = 360;
+	final ScrollAreaWidth = 1024.0;
 
 	override function init() {
 		var s2d = Main.app.s2d;
-		s2d.scaleMode = ScaleMode.LetterBox(640, 360, true);
+		s2d.scaleMode = ScaleMode.LetterBox(ViewWidth, ViewHeight, true);
 		map = TiledMap.fromFile("tropical_island.json", s2d);
+
+		var bg = map.allLayers["bg"];
+		var scrollObjects = new Array<TiledLayer>();
+		for (layer in bg.layers) {
+			scrollObjects.push(layer);
+		}
+		var scroll = new Scroll(ScrollAreaWidth, scrollObjects);
+		scrolls.push(scroll);
 	}
 
 	override function dispose() {
@@ -15,14 +24,9 @@ class GameplayState extends AppState {
 	}
 
 	override function fixedUpdate() {
-		var left = if (Key.isDown(Key.LEFT)) 1 else 0;
-		var right = if (Key.isDown(Key.RIGHT)) 1 else 0;
-		var up = if (Key.isDown(Key.UP)) 1 else 0;
-		var down = if (Key.isDown(Key.DOWN)) 1 else 0;
-
-		var speed = 4;
-		map.x += speed * (left - right);
-		map.y += speed * (up - down);
+		for (scroll in scrolls) {
+			scroll.fixedUpdate();
+		}
 	}
 
 	override function update(dfu:Float) {}
