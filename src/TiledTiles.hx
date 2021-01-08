@@ -89,9 +89,9 @@ class TiledTiles {
 			var tileData = tilesData[i];
 			if (tileData != null) {
 				var properties = tileData.propertyDict;
-				var stringIdProperty = tileData.propertyDict["id"];
+				var stringIdProperty:String = tileData.propertyDict["id"];
 				if (stringIdProperty != null)
-					stringId = '$tilesetname/${stringIdProperty.value}';
+					stringId = '$tilesetname/$stringIdProperty';
 
 				var animationData = tileData.animation;
 				if (animationData != null) {

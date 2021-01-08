@@ -57,7 +57,7 @@ typedef LayerData = {
 	opacity:Float,
 	tintcolor:String,
 	properties:Array<Property>,
-	propertyDict:Map<String, Property>,
+	propertyDict:Map<String, Any>,
 
 	chunks:Array<Chunk>,
 	compression:String,
@@ -94,7 +94,7 @@ typedef ObjectData = {
 	text:TextData,
 	template:String,
 	properties:Array<Property>,
-	propertyDict:Map<String, Property>,
+	propertyDict:Map<String, Any>,
 	tileset:TilesetData,
 }
 
@@ -102,7 +102,7 @@ typedef Terrain = {
 	name:String,
 	tile:Int,
 	properties:Array<Property>,
-	propertyDict:Map<String, Property>,
+	propertyDict:Map<String, Any>,
 }
 
 typedef FrameData = {
@@ -118,7 +118,7 @@ typedef TileData = {
 	objectgroup:LayerData,
 	terrain:Array<Int>,
 	properties:Array<Property>,
-	propertyDict:Map<String, Property>,
+	propertyDict:Map<String, Any>,
 }
 
 typedef TilesetData = {
@@ -142,7 +142,7 @@ typedef TilesetData = {
 	objectalignment:String,
 	// Alignment to use for tile objects (unspecified (default), topleft, top, topright, left, center, right, bottomleft, bottom or bottomright) (since 1.4)
 	properties:Array<Property>,
-	propertyDict:Map<String, Property>,
+	propertyDict:Map<String, Any>,
 	// Array of Properties
 	source:String,
 	// The external file that contains this tilesets data
@@ -191,7 +191,7 @@ typedef MapData = {
 	orientation:String,
 	// orthogonal, isometric, staggered or hexagonal
 	properties:Array<Property>,
-	propertyDict:Map<String, Property>,
+	propertyDict:Map<String, Any>,
 	// Array of Properties
 	renderorder:String,
 	// right-down (the default), right-up, left-down or left-up (currently only supported for orthogonal maps)
@@ -287,10 +287,10 @@ class Tiled {
 	}
 
 	static function propertyDict(properties:Array<Property>) {
-		var dict = new Map<String, Property>();
+		var dict = new Map<String, Any>();
 		if (properties != null) {
 			for (property in properties) {
-				dict[property.name] = property;
+				dict[property.name] = property.value;
 			}
 		}
 		return dict;

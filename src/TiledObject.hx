@@ -13,7 +13,7 @@ class TiledObject extends Object {
 
 	var sprite:Object;
 	var text:Text;
-	var properties:Map<String, Property>;
+	var properties:Map<String, Any>;
 
 	public function new(?objectData:ObjectData, ?parent:Object) {
 		super(parent);

@@ -10,7 +10,7 @@ import Tiled.LayerData;
 
 class TiledLayer extends Layers {
 	public var id(default, null):Int;
-	public var properties(default, null):Map<String, Property>;
+	public var properties(default, null):Map<String, Any>;
 	public var layers(default, null):Map<Int, TiledLayer>;
 	public var objects(default, null):Map<Int, TiledObject>;
 
