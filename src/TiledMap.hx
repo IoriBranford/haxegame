@@ -26,6 +26,7 @@ class TiledMap extends Layers {
 		for (i in 0...mapData.layers.length) {
 			var layer = new TiledLayer(mapData.layers[i], mapData);
 			add(layer, i);
+			fillAllLayersAndObjects(layer);
 		}
 	}
 
