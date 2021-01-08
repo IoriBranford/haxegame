@@ -3,3 +3,4 @@ deps.hxml
 -dce full
 -main Main
 -debug
+-D windowSize=1280x720

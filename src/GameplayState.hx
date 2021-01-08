@@ -1,10 +1,13 @@
 import hxd.Key;
+import h2d.Scene.ScaleModeAlign;
 
 class GameplayState extends AppState {
 	var map:TiledMap;
 
 	override function init() {
-		map = TiledMap.fromFile("stage_inebriator.json", Main.app.s2d);
+		var s2d = Main.app.s2d;
+		s2d.scaleMode = ScaleMode.LetterBox(640, 360, true);
+		map = TiledMap.fromFile("tropical_island.json", s2d);
 	}
 
 	override function dispose() {
