@@ -1,0 +1,28 @@
+.rules: &rules
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web" || $CI_COMMIT_TAG != null'
+
+stages:
+  - build
+
+image: haxe:4.1
+
+before_script:
+  - haxelib setup ./haxelib
+  - haxelib --always install deps.hxml
+  - haxelib --always install redistHelper
+
+hl:
+  <<: *rules
+  stage: build
+  script:
+    - haxe compile.hl.hxml
+  cache:
+    key: "${PROJECT}-hl"
+    paths:
+      - haxelib
+  artifacts:
+    name: "${PROJECT}-hl"
+    paths:
+      - hello.hl
+      - $(git ls-files res)
