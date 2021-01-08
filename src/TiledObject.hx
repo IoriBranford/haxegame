@@ -1,3 +1,4 @@
+import Tiled.Property;
 import h2d.Bitmap;
 import TiledTiles.Animation;
 import hxd.res.DefaultFont;
@@ -12,6 +13,7 @@ class TiledObject extends Object {
 
 	var sprite:Object;
 	var text:Text;
+	var properties:Map<String, Property>;
 
 	public function new(?objectData:ObjectData, ?parent:Object) {
 		super(parent);
@@ -34,16 +36,15 @@ class TiledObject extends Object {
 
 	public function initFromData(objectData:ObjectData) {
 		id = objectData.id;
-		var gidOffset = 0;
-		if (objectData.template != null) {
-			var template = Tiled.loadTemplate(objectData.template);
-			if (template != null) {
-				gidOffset = template.tileset.firstgid - 1;
-			}
-		}
+		name = objectData.name;
 
-		this.setPosition(objectData.x, objectData.y);
-		this.rotation = objectData.rotation * Math.PI / 180.0;
+		var gidOffset = 0;
+		if (objectData.tileset != null)
+			gidOffset = objectData.tileset.firstgid - 1;
+
+		setPosition(objectData.x, objectData.y);
+		rotation = objectData.rotation * Math.PI / 180.0;
+		properties = objectData.propertyDict;
 
 		var gid = objectData.gid;
 		if (gid != 0) {
