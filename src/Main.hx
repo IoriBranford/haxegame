@@ -33,6 +33,7 @@ class Main extends hxd.App {
 			appState.dispose();
 			appState = nextState;
 			appState.init();
+			s2d.setElapsedTime(0);
 		}
 	}
 
