@@ -48,14 +48,8 @@ class TiledObject extends Object {
 		var gid = objectData.gid;
 		if (gid != 0) {
 			var flags = gid & 0xe0000000;
-			if (flags & 0x80000000 != 0)
-				this.scaleX = -this.scaleX;
-			if (flags & 0x40000000 != 0)
-				this.scaleY = -this.scaleY;
-
 			gid &= 0x1fffffff;
 			gid += gidOffset;
-			objectData.gid = gid;
 
 			var animation = Tiled.tiles.getObjectAnimation(gid);
 			if (animation != null) {
@@ -63,6 +57,11 @@ class TiledObject extends Object {
 			} else {
 				setSpriteTile(Tiled.tiles.getObjectTile(gid));
 			}
+
+			if (flags & 0x80000000 != 0)
+				sprite.scaleX = -sprite.scaleX;
+			if (flags & 0x40000000 != 0)
+				sprite.scaleY = -sprite.scaleY;
 		}
 
 		var textData = objectData.text;
