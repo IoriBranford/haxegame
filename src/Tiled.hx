@@ -287,11 +287,11 @@ class Tiled {
 	}
 
 	static function propertyDict(properties:Array<Property>) {
-		if (properties == null)
-			return null;
 		var dict = new Map<String, Property>();
-		for (property in properties) {
-			dict[property.name] = property;
+		if (properties != null) {
+			for (property in properties) {
+				dict[property.name] = property;
+			}
 		}
 		return dict;
 	}
@@ -375,11 +375,9 @@ class Tiled {
 			object.ellipse = template.object.ellipse;
 			object.tileset = template.tileset;
 			var templateProperties = template.object.properties;
-			if (properties != null && templateProperties != null) {
-				for (property in templateProperties) {
-					if (!properties.exists(property.name))
-						properties[property.name] = property;
-				}
+			for (property in templateProperties) {
+				if (!properties.exists(property.name))
+					properties[property.name] = property;
 			}
 		}
 	}
