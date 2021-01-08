@@ -2,11 +2,10 @@ import h2d.Layers;
 import Tiled.MapData;
 import h2d.Object;
 
-class TiledMap extends Object {
-	public var allLayers(default, null) = new Map<Int, TiledLayer>();
+class TiledMap extends Layers {
+	public var allLayers(default, null) = new Map<String, TiledLayer>();
 	public var allObjects(default, null) = new Map<Int, TiledObject>();
 
-	var layerStack:Layers;
 	var nextLayerId = 1;
 	var nextObjectId = 1;
 
@@ -17,7 +16,6 @@ class TiledMap extends Object {
 
 	public function new(?mapData:MapData, ?parent:Object) {
 		super(parent);
-		layerStack = new Layers(this);
 		initFromData(mapData);
 	}
 
@@ -25,20 +23,22 @@ class TiledMap extends Object {
 		nextLayerId = mapData.nextlayerid;
 		nextObjectId = mapData.nextobjectid;
 
-		for (layerData in mapData.layers) {
-			var layer = new TiledLayer(layerData, mapData);
-			layerStack.add(layer, 0);
-			fillAllLayersAndObjects(layer);
+		for (i in 0...mapData.layers.length) {
+			var layer = new TiledLayer(mapData.layers[i], mapData);
+			add(layer, i);
 		}
 	}
 
 	function fillAllLayersAndObjects(layer:TiledLayer) {
-		allLayers[layer.id] = layer;
+		if (layer.name != null && layer.name != "")
+			allLayers[layer.name] = layer;
+
 		if (layer.layers != null) {
 			for (layer in layer.layers) {
 				fillAllLayersAndObjects(layer);
 			}
 		}
+
 		if (layer.objects != null) {
 			for (object in layer.objects) {
 				allObjects[object.id] = object;

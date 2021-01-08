@@ -1,3 +1,4 @@
+import Tiled.Property;
 import h2d.Layers;
 import h2d.Tile;
 import h2d.SpriteBatch;
@@ -7,17 +8,17 @@ import h2d.Object;
 import Tiled.MapData;
 import Tiled.LayerData;
 
-class TiledLayer extends Object {
+class TiledLayer extends Layers {
 	public var id(default, null):Int;
 	public var layers(default, null):Map<Int, TiledLayer>;
 	public var objects(default, null):Map<Int, TiledObject>;
 
-	var stack:Layers;
 	var bitmap:Bitmap;
 	var spriteBatch:SpriteBatch;
 	var chunkGrid:Array<SpriteBatch>;
 	var elementGrid:Array<BatchElement>;
-	var ysort = false;
+	var ySorted = false;
+	var properties:Map<String, Property>;
 
 	public function new(?layerData:LayerData, ?mapData:MapData, ?parent:Object) {
 		super(parent);
@@ -49,11 +50,6 @@ class TiledLayer extends Object {
 				element.y = r * cellHeight;
 				var gid = data[i++];
 				var tile = Tiled.tiles.getLayerTile(gid);
-				if (tile != null) {
-					tile = tile.clone();
-					tile.dx = 0;
-					tile.dy = -tile.height;
-				}
 				element.t = tile;
 				element.visible = tile != null;
 				spritebatch.add(element);
@@ -64,16 +60,17 @@ class TiledLayer extends Object {
 
 	public function initFromData(layerData:LayerData, mapData:MapData) {
 		id = layerData.id;
-		this.x = layerData.offsetx;
-		this.y = layerData.offsety;
+		name = layerData.name;
+		x = layerData.offsetx;
+		y = layerData.offsety;
+		properties = layerData.propertyDict;
 
 		if (layerData.layers != null) {
 			layers = new Map<Int, TiledLayer>();
-			stack = new Layers(this);
-			for (layerData in layerData.layers) {
-				var layer = new TiledLayer(layerData, mapData);
+			for (i in 0...layerData.layers.length) {
+				var layer = new TiledLayer(layerData.layers[i], mapData);
 				layers[layer.id] = layer;
-				stack.add(layer, 0);
+				add(layer, i);
 			}
 		}
 
@@ -84,29 +81,28 @@ class TiledLayer extends Object {
 
 		if (layerData.chunks != null) {
 			for (chunk in layerData.chunks) {
-				var spritebatch = spriteBatchFromData(chunk.width, chunk.height, chunk.data, mapData);
-				if (spritebatch != null) {
-					spritebatch.x = chunk.x * mapData.tilewidth;
-					spritebatch.y = chunk.y * mapData.tileheight;
-					this.addChild(spritebatch);
+				var chunkBatch = spriteBatchFromData(chunk.width, chunk.height, chunk.data, mapData);
+				if (chunkBatch != null) {
+					chunkBatch.x = chunk.x * mapData.tilewidth;
+					chunkBatch.y = chunk.y * mapData.tileheight;
+					addChild(chunkBatch);
 				}
 			}
 		} else if (layerData.data != null) {
 			var data:Array<Int> = layerData.data;
-			var spritebatch = spriteBatchFromData(mapData.width, mapData.height, data, mapData);
-			if (spritebatch != null) {
-				this.addChild(spritebatch);
+			var spriteBatch = spriteBatchFromData(mapData.width, mapData.height, data, mapData);
+			if (spriteBatch != null) {
+				addChild(spriteBatch);
 			}
 		}
 
 		if (layerData.objects != null) {
-			ysort = layerData.draworder == "topdown";
+			ySorted = layerData.draworder == "topdown";
 			objects = new Map<Int, TiledObject>();
-			stack = new Layers(this);
 			for (objectData in layerData.objects) {
 				var object = new TiledObject(objectData);
 				objects[object.id] = object;
-				stack.add(object, 0);
+				add(object, 0);
 			}
 		}
 	}
