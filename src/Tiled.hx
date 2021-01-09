@@ -1,3 +1,4 @@
+import h2d.Tile;
 import format.gz.Reader;
 import haxe.io.BytesInput;
 import haxe.crypto.Base64;
@@ -22,80 +23,95 @@ typedef Property = {
 }
 
 typedef TextData = {
-	fontfamily:String,
-	pixelsize:Int,
+	// app will use these
+	font:h2d.Font,
+	text:String,
+	halign:String,
+	valign:String,
 	wrap:Bool,
 	color:String,
+
+	// not these
+	fontfamily:String,
+	pixelsize:Int,
 	bold:Bool,
 	italic:Bool,
 	underline:Bool,
 	strikeout:Bool,
 	kerning:Bool,
-	halign:String,
-	valign:String,
-	text:String,
 }
 
-typedef GidBounds = {min:Int, max:Int};
-
 typedef Chunk = {
+	// app will use these
+	tiles:Array<Tile>,
 	x:Int,
 	y:Int,
 	width:Int,
 	height:Int,
+
+	// not this
 	data:Any,
-	gidbounds:GidBounds
 }
 
 typedef LayerData = {
-	id:Int,
+	// app will use these
+	tiles:Array<Tile>,
+	chunks:Array<Chunk>,
+	layers:Array<LayerData>,
+	objects:Array<ObjectData>,
+
+	// likely use these
 	name:String,
-	type:String,
 	offsetx:Float,
 	offsety:Float,
+	width:Int,
+	height:Int,
+	draworder:String,
+	// might use these
+	id:Int,
+	type:String,
 	visible:Bool,
 	opacity:Float,
-	tintcolor:String,
-	properties:Array<Property>,
 	propertyDict:Map<String, Any>,
-
-	chunks:Array<Chunk>,
+	// not these
+	x:Int,
+	y:Int,
+	properties:Array<Property>,
 	compression:String,
 	data:Any,
 	encoding:String,
-	startx:Int,
-	starty:Int,
-	width:Int,
-	height:Int,
-	objects:Array<ObjectData>,
-	draworder:String,
 	image:String,
-	transparentcolor:String,
-	layers:Array<LayerData>,
-	x:Int,
-	y:Int,
-	gidbounds:GidBounds
 }
 
 typedef ObjectData = {
+	// app will use these
 	> Position,
-	width:Float,
-	height:Float,
-	id:Int,
-	name:String,
-	type:String,
-	rotation:Float,
-	gid:Int,
-	visible:Bool,
-	ellipse:Bool,
-	point:Bool,
+	tile:Tile,
+	animation:Array<{
+		tile:Tile,
+		duration:Int,
+	}>,
 	polygon:Array<Position>,
 	polyline:Array<Position>,
-	text:TextData,
-	template:String,
-	properties:Array<Property>,
-	propertyDict:Map<String, Any>,
 	tileset:TilesetData,
+	text:TextData,
+	width:Float,
+	height:Float,
+
+	// might use these
+	rotation:Float,
+	name:String,
+	type:String,
+	id:Int,
+	ellipse:Bool,
+	point:Bool,
+	visible:Bool,
+	propertyDict:Map<String, Any>,
+	// probably not this
+	template:String,
+	// not these
+	properties:Array<Property>,
+	gid:Int,
 }
 
 typedef Terrain = {
@@ -111,108 +127,82 @@ typedef FrameData = {
 }
 
 typedef TileData = {
+	// likely use this
+	animation:Array<FrameData>,
+	// might use these
+	objectgroup:LayerData,
 	id:Int,
 	type:String,
 	probability:Float,
-	animation:Array<FrameData>,
-	objectgroup:LayerData,
-	terrain:Array<Int>,
-	properties:Array<Property>,
 	propertyDict:Map<String, Any>,
+	terrain:Array<Int>,
+	// not this
+	properties:Array<Property>,
 }
 
 typedef TilesetData = {
-	backgroundcolor:String,
-	// Hex-formatted color (#RRGGBB or #AARRGGBB) (optional)
-	columns:Int,
-	// The number of tile columns in the tileset
-	firstgid:Int,
-	// GID corresponding to the first tile in the set
-	// grid 				:Grid 	,// (optional)
-	image:String,
-	// Image used for tiles in this set
-	imageheight:Int,
-	// Height of source image in pixels
-	imagewidth:Int,
-	// Width of source image in pixels
-	margin:Int,
-	// Buffer between image edge and first tile (pixels)
-	name:String,
-	// Name given to this tileset
-	objectalignment:String,
-	// Alignment to use for tile objects (unspecified (default), topleft, top, topright, left, center, right, bottomleft, bottom or bottomright) (since 1.4)
-	properties:Array<Property>,
+	// app will likely use this
+	h2dTiles:Array<Tile>,
+	tileAnimations:Array<{
+		tile:Tile,
+		duration:Int
+	}>,
+	// might use these
 	propertyDict:Map<String, Any>,
-	// Array of Properties
-	source:String,
-	// The external file that contains this tilesets data
-	spacing:Int,
-	// Spacing between adjacent tiles in image (pixels)
+	name:String,
+	objectalignment:String,
 	terrains:Array<Terrain>,
-	// Array of Terrains (optional)
 	tilecount:Int,
-	// The number of tiles in this tileset
-	tiledversion:String,
-	// 	The Tiled version used to save the file
 	tileheight:Int,
-	// Maximum height of tiles in this set
 	tileoffset:{x:Int, y:Int},
-	tiles:Array<TileData>,
-	// Array of Tiles (optional)
 	tilewidth:Int,
-	// Maximum width of tiles in this set
+	// not these
+	columns:Int,
+	firstgid:Int,
+	backgroundcolor:String,
 	transparentcolor:String,
-	// Hex-formatted color (#RRGGBB) (optional)
+	margin:Int,
+	spacing:Int,
+	tiledversion:String,
 	type:String,
-	// tileset (for tileset files, since 1.0)
+	tiles:Array<TileData>,
+	source:String,
+	image:String,
+	imageheight:Int,
+	imagewidth:Int,
+	properties:Array<Property>,
 	version:Float,
-	// The JSON format version
-	// wangsets:array,
-	// Array of Wang sets (since 1.1.5)
 }
 
 typedef MapData = {
-	backgroundcolor:String,
-	// Hex-formatted color (#RRGGBB or #AARRGGBB) (optional)
-	compressionlevel:Int,
-	// The compression level to use for tile layer data (defaults to -1, which means to use the algorithm default)
-	height:Int,
-	// Number of tile rows
-	hexsidelength:Int,
-	// Length of the side of a hex tile in pixels (hexagonal maps only)
-	infinite:Bool,
-	// Whether the map has infinite dimensions
+	// app will use these
 	layers:Array<LayerData>,
-	// Array of Layers
-	nextlayerid:Int,
-	// Auto-increments for each layer
-	nextobjectid:Int,
-	// Auto-increments for each placed object
+	tiles:Map<String, Tile>,
+
+	// likely use these
 	orientation:String,
-	// orthogonal, isometric, staggered or hexagonal
-	properties:Array<Property>,
-	propertyDict:Map<String, Any>,
-	// Array of Properties
-	renderorder:String,
-	// right-down (the default), right-up, left-down or left-up (currently only supported for orthogonal maps)
-	staggeraxis:String,
-	// x or y (staggered / hexagonal maps only)
-	staggerindex:String,
-	// odd or even (staggered / hexagonal maps only)
-	tiledversion:String,
-	// The Tiled version used to save the file
-	tileheight:Int,
-	// Map grid height
-	tilesets:Array<TilesetData>,
-	// Array of Tilesets
-	tilewidth:Int,
-	// Map grid width
-	type:String,
-	// map (since 1.0)
-	version:Float,
-	// The JSON format version
+	backgroundcolor:String,
 	width:Int,
-	// Number of tile columns
+	height:Int,
+	tileheight:Int,
+	tilewidth:Int,
+	hexsidelength:Int,
+	infinite:Bool,
+	// might use these
+	tilesets:Array<TilesetData>,
+	propertyDict:Map<String, Any>,
+	nextlayerid:Int,
+	nextobjectid:Int,
+	renderorder:String,
+	staggeraxis:String,
+	staggerindex:String,
+	tiledversion:String,
+	// not these
+	tileArray:Array<Tile>,
+	properties:Array<Property>,
+	compressionlevel:Int,
+	type:String,
+	version:Float,
 }
 
 typedef TemplateData = {
@@ -332,14 +322,9 @@ class Tiled {
 					chunk.data = decodeData(chunk.data, layer.compression);
 				}
 			}
-			for (chunk in layer.chunks) {
-				chunk.gidbounds = findGidBounds(chunk.data);
-			}
 		} else if (layer.data != null) {
 			if (layer.encoding == "base64")
 				layer.data = decodeData(layer.data, layer.compression);
-
-			layer.gidbounds = findGidBounds(layer.data);
 		}
 
 		if (layer.objects != null) {
