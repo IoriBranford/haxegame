@@ -10,38 +10,44 @@
  "infinite":true,
  "layers":[
         {
-         "chunks":[
+         "id":28,
+         "layers":[
                 {
-                 "data":"eJxzZ2BgcB\/COIxCnEohLqEQN1OIJ1GIF1KIR8HQBgB0oDuh",
+                 "chunks":[
+                        {
+                         "data":"eJxzZ2BgcB\/COIxCnEohLqEQN1OIJ1GIF1KIR8HQBgB0oDuh",
+                         "height":16,
+                         "width":16,
+                         "x":0,
+                         "y":0
+                        }, 
+                        {
+                         "data":"eJxzZ2BgcB\/COIxCnEohLqEQN1OIJ1GIF1KIR8HQBgB0oDuh",
+                         "height":16,
+                         "width":16,
+                         "x":16,
+                         "y":0
+                        }],
+                 "compression":"zlib",
+                 "encoding":"base64",
                  "height":16,
-                 "width":16,
+                 "id":1,
+                 "name":"sky",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"dx",
+                         "type":"float",
+                         "value":0
+                        }],
+                 "startx":0,
+                 "starty":0,
+                 "type":"tilelayer",
+                 "visible":true,
+                 "width":32,
                  "x":0,
                  "y":0
                 }, 
-                {
-                 "data":"eJxzZ2BgcB\/COIxCnEohLqEQN1OIJ1GIF1KIR8HQBgB0oDuh",
-                 "height":16,
-                 "width":16,
-                 "x":16,
-                 "y":0
-                }],
-         "compression":"zlib",
-         "encoding":"base64",
-         "height":16,
-         "id":1,
-         "name":"sky",
-         "opacity":1,
-         "startx":0,
-         "starty":0,
-         "type":"tilelayer",
-         "visible":true,
-         "width":32,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "id":28,
-         "layers":[
                 {
                  "chunks":[
                         {
