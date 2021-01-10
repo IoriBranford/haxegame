@@ -1,2 +1,9 @@
+# bin
 *.hl
+*.pak
+
+# local
 *.tiled-session
+
+# build
+haxelib/
