@@ -598,8 +598,6 @@ class TiledDocument {
 					tiles: makeChunkTiles(chunkData.width, chunkData.height, chunkData.data)
 				};
 				chunks.push(chunk);
-				trace(chunkData.data);
-				trace(chunk.tiles);
 			}
 		} else if (layerData.data != null) {
 			var chunks:Array<Chunk> = new Array<Chunk>();
