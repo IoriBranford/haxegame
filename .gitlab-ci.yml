@@ -25,4 +25,4 @@ hl:
     name: "${CI_PROJECT_NAME}-hl"
     paths:
       - hello.hl
-      - $(git ls-files -z res)
+      # TODO resource dir or pak
