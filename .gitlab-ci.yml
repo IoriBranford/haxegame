@@ -18,11 +18,11 @@ hl:
   script:
     - haxe compile.hl.hxml
   cache:
-    key: "${PROJECT}-hl"
+    key: "${CI_PROJECT_NAME}-hl"
     paths:
       - haxelib
   artifacts:
-    name: "${PROJECT}-hl"
+    name: "${CI_PROJECT_NAME}-hl"
     paths:
       - hello.hl
-      - $(git ls-files res)
+      - $(git ls-files -z res)
