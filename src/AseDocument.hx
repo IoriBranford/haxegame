@@ -62,7 +62,7 @@ typedef Cel = {
 
 typedef Frame = {
 	cels:Array<Cel>,
-	millis:Int
+	durationMs:Int
 }
 
 class AseDocument {
@@ -104,12 +104,12 @@ class AseDocument {
 			if (frames[frameIndex] == null) {
 				frames[frameIndex] = {
 					cels: new Array<Cel>(),
-					millis: 0
+					durationMs: 0
 				};
 			}
 
 			var frame = frames[frameIndex];
-			frame.millis = celData.duration;
+			frame.durationMs = celData.duration;
 			frame.cels.push(cel);
 		}
 

@@ -43,7 +43,7 @@ class Aseprite extends Object {
 		if (anim != null) {
 			animSeq = document.anims[anim];
 			animIndex = 0;
-			animTimerMs = document.frames[frame].millis;
+			animTimerMs = document.frames[frame].durationMs;
 			frame = animSeq[0];
 		}
 		return anim;
@@ -82,7 +82,7 @@ class Aseprite extends Object {
 				animIndex++;
 				animIndex %= animSeq.length;
 				frame = (animSeq[animIndex]);
-				animTimerMs += document.frames[frame].millis;
+				animTimerMs += document.frames[frame].durationMs;
 			}
 		}
 	}
