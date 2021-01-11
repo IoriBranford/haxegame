@@ -15,8 +15,6 @@
  */
 
 import haxe.io.Path;
-import h2d.Object;
-import h2d.SpriteBatch;
 import haxe.Json;
 import h2d.Tile;
 

@@ -3,7 +3,7 @@ import h2d.RenderContext;
 import h2d.Object;
 import h2d.TileGroup;
 
-class AseAnim extends Object {
+class Aseprite extends Object {
 	public var document(default, set):AseDocument;
 	public var frame(default, set) = 0;
 	public var anim(default, set):String;
