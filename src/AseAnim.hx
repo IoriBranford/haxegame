@@ -10,6 +10,7 @@ class AseAnim extends Object {
 
 	var tileGroup:TileGroup;
 	var spriteBatch:SpriteBatch;
+	var spriteBatchElements:Map<String, BatchElement>;
 
 	var animIndex = 0;
 	var animSeq:Array<Int>;
@@ -22,6 +23,7 @@ class AseAnim extends Object {
 				tileGroup = new TileGroup(document.imageTile, this);
 			case "SpriteBatch":
 				spriteBatch = new SpriteBatch(document.imageTile, this);
+				spriteBatchElements = new Map<String, BatchElement>();
 			default:
 				throw 'Unknown ase node type $nodeType';
 		}
@@ -59,11 +61,13 @@ class AseAnim extends Object {
 
 		if (spriteBatch != null) {
 			spriteBatch.clear();
+			spriteBatchElements.clear();
 			for (cel in frame.cels) {
 				var e = new BatchElement(cel.tile);
 				e.x = cel.x;
 				e.y = cel.y;
 				spriteBatch.add(e);
+				spriteBatchElements[cel.name] = e;
 			}
 		}
 
