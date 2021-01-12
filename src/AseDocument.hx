@@ -69,6 +69,7 @@ class AseDocument {
 	public var width(default, null) = 1;
 	public var height(default, null) = 1;
 	public var frames(default, null) = new Array<Frame>();
+	public var layers(default, null) = new Array<String>();
 	public var anims(default, null) = new Map<String, Array<Int>>();
 	public var imageTile(default, null):Tile;
 
@@ -87,6 +88,8 @@ class AseDocument {
 				throw 'Can\'t parse frame ${celData.filename}';
 
 			var layerName = r.matched(1);
+			if (layers.length <= 0 || layers[layers.length - 1] != layerName)
+				layers.push(layerName);
 			var dest = celData.spriteSourceSize;
 			var src = celData.frame;
 			var cel = {

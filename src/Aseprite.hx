@@ -7,6 +7,7 @@ class Aseprite extends Object {
 	public var document(default, set):AseDocument;
 	public var frame(default, set) = 0;
 	public var anim(default, set):String;
+	public var layersVisible(default, null) = new Map<String, Bool>();
 
 	var tileGroup:TileGroup;
 	var spriteBatch:SpriteBatch;
@@ -16,8 +17,10 @@ class Aseprite extends Object {
 	var animSeq:Array<Int>;
 	var animTimerMs = 0.0;
 
-	public function new(document:AseDocument, nodeType:String, ?parent:Object) {
+	public function new(document:AseDocument, parent:Object = null, nodeType:String = "SpriteBatch") {
 		super(parent);
+		for (layerName in document.layers)
+			layersVisible[layerName] = true;
 		switch (nodeType) {
 			case "TileGroup":
 				tileGroup = new TileGroup(document.imageTile, this);
@@ -55,8 +58,11 @@ class Aseprite extends Object {
 
 		if (tileGroup != null) {
 			tileGroup.clear();
-			for (cel in frame.cels)
+			for (cel in frame.cels) {
+				if (!layersVisible[cel.name])
+					continue;
 				tileGroup.add(cel.x, cel.y, cel.tile);
+			}
 		}
 
 		if (spriteBatch != null) {
@@ -64,6 +70,7 @@ class Aseprite extends Object {
 			spriteBatchElements.clear();
 			for (cel in frame.cels) {
 				var e = new BatchElement(cel.tile);
+				e.visible = layersVisible[cel.name];
 				e.x = cel.x;
 				e.y = cel.y;
 				spriteBatch.add(e);
@@ -72,6 +79,15 @@ class Aseprite extends Object {
 		}
 
 		return frameIndex;
+	}
+
+	public function setLayerVisible(layer:String, visible:Bool) {
+		layersVisible[layer] = visible;
+		if (spriteBatchElements != null) {
+			var e = spriteBatchElements[layer];
+			if (e != null)
+				e.visible = visible;
+		}
 	}
 
 	override function sync(ctx:RenderContext) {
